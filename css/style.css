@@ -6,36 +6,45 @@ body{
 	height: 100%;
 	padding: 0;
 	margin: 0;
+	font-size: 1.2em;
 }
 
 #map-canvas{
 	height: 100%;
 }
+
+.infoBubble{
+	font-size: 1.2em;
+}
+
 #places{
 	height: 200px;
-	width: 250px;
+	width: 300px;
 	float: left;
 	position: absolute;
 	z-index: 1;
 	top: calc(50% - 100px);
 	left: 20px;
 }
+
 ul {
 	list-style-type: none;
 	padding: 10px;
 	margin: 10px;
 	background-color: rgba(0, 0, 0, 0.5);
-	font-size: 16px;
 	color: whitesmoke;
 	line-height: 28px;
 }
+
 li:hover{
 	background: grey;
 }
+
 .bgimg{
 	width: 285px;
 	height: 185px;
 }
+
 .selected {
 	background: darkgray;
 }
