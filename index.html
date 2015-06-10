@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="./css/style.css">
+	<title></title>
+</head>
+<body>
+<!--knockout html to represent the data-->
+<div id="places">
+	<ul data-bind="foreach: searchPlaces">
+		<li data-bind="text: $data.name, click: $parent.setCurrentPlace, css: { selected: $data.selected() > 0 }"></li>
+	</ul>
+	<ul>
+		<form action="#">
+			<input class="search" placeholder="search" type="search" name="search" data-bind="value: searchBox, valueUpdate: 'keyup'" autocomplete="off">
+		</form>
+	</ul>
+</div>
+<div id="map-canvas"></div>
+<script src="./js/libs/jquery.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyhcdWwoXeQZdOTysKxgw8WrGbRm-GQIQ"></script>
+<script src="./js/libs/knockout-3.3.0.js"></script>
+<script src="./js/libs/markerclusterer.js"></script>
+<script src="./js/libs/infobubble.js"></script>
+<script src="./js/script.js"></script>
+</body>
+</html>
+
