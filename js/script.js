@@ -9,7 +9,7 @@ var Map = function (element, opts) {
         } else {
             return this.gMap.getZoom();
         }
-    }
+    };
 };
 //map options object to be supplied when creating a new Map
 var mapOptions = {
@@ -41,8 +41,18 @@ map.zoom(15);
 var infoBubble = new InfoBubble({
     maxWidth: 300,
     maxHeight: 200,
-    closeSrc: './images/close.png'
+    closeSrc: './images/close.png',
+    backgroundClassName: 'infoBubble'
+    /*closeAll: function() {
+        for(var i = infoBubble.tabs_.length; i--; ){
+            infoBubble.removeTab(i);
+        }
+    }*/
 });
+
+infoBubble.addTab('NYtimes','cool content is coming');
+infoBubble.addTab('Wiki','cool content is coming');
+infoBubble.addTab('streetView','cool content is coming');
 
 //data
 var places = [
@@ -129,18 +139,16 @@ var ViewModel = function(){
                 self.setCurrentPlace(Copy);
             };
         })(marker));
-        //console.log(marker);
+
         self.list().push(marker);
     });
     //ajax calls
     this.ajaxCallNY = function(data) {
-        for(var i = 0; i < infoBubble.tabs_.length; i++){
-            infoBubble.removeTab(i)
-        }
+
         var contentString;
         var nyTimes = "http://api.nytimes.com/svc/search/v2/articlesearch.json?q=" + data.name() + "&page=0&fl=headline,snippet&api-key=d46598ba9b6ede96c3e0e686577e14d2:19:72046219";
         $.getJSON(nyTimes, function (data) {
-            //console.log(data);
+
             var items = [];
             $.each(data.response.docs, function (idx, obj) {
                 items.push("<h3>" + idx + " - " + obj.headline.main + "</h3>");
@@ -149,20 +157,18 @@ var ViewModel = function(){
 
             contentString = items.join("");
 
-            infoBubble.addTab('NYtimes',contentString);
+            infoBubble.updateTab(0,'<div class="infoBubble">NYtimes</div>',contentString);
             infoBubble.updateContent_();
         }).error(function(e){
-            var error = "<p>error</p>" + e ;
-            infoBubble.addTab('NYtimes',error);
+            var error = "<p>error: failed to load articles from NYTimes. Here is the actual error...</p>" + e.statusText;
+            infoBubble.updateTab(0,'<div class="infoBubble">NYtimes</div>',error);
             infoBubble.updateContent_();
         });
     };
     this.wikiCall = function(data){
-        for(var i = 0; i < infoBubble.tabs_.length; i++){
-            infoBubble.removeTab(i)
-        }
+
         var wikiTimeOut = setTimeout(function(){
-            infoBubble.updateTab("Wiki","failed");
+            infoBubble.updateTab(1, '<div class="infoBubble">Wiki</div>', "request failed");
             infoBubble.updateContent_();
         }, 4000);
         $.ajax({
@@ -180,25 +186,23 @@ var ViewModel = function(){
                 }
                 var contentString = result.join('');
                 clearTimeout(wikiTimeOut);
-                infoBubble.addTab('Wiki',contentString);
+                infoBubble.updateTab(1,'<div class="infoBubble">Wiki</div>',contentString);
                 infoBubble.updateContent_();
             }
         });
     };
     this.streetView = function(data){
-        for(var i = 0; i < infoBubble.tabs_.length; i++){
-            infoBubble.removeTab(i)
-        }
+
         var img = data.position.A + "," + data.position.F;
-        var contentString = '<img class="bgimg" src="https://maps.googleapis.com/maps/api/streetview?size=600x300&location='+img+'">';
-        infoBubble.addTab('streetView',contentString);
+        var contentString = '<img class="bgimg" alt="failed to load image...check internet" src="https://maps.googleapis.com/maps/api/streetview?size=600x300&location='+img+'">';
+        infoBubble.updateTab(2,'<div class="infoBubble">streetView</div>',contentString);
         infoBubble.updateContent_();
     };
     this.setCurrentPlace = function(data){
 
         self.list().forEach(function(data){
             data.setIcon(null);
-            data.selected(null)
+            data.selected(null);
         });
         data.setIcon(iconSelected);
         data.selected(1);
