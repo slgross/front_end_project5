@@ -34,7 +34,7 @@ body{
 	float: left;
 	position: absolute;
 	z-index: 1;
-	top: 50%;
+	top: 80%;
 }
 
 input, textarea{
