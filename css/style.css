@@ -37,6 +37,11 @@ body{
 	top: 50%;
 }
 
+input, textarea{
+	background-color:#666;
+	color: #FFF;
+}
+
 ul {
 	list-style-type: none;
 	padding: 10px;
