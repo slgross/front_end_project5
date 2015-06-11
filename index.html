@@ -2,12 +2,13 @@
 <html>
 <head>
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 	<link rel="stylesheet" href="./css/style.css">
 	<title>front-end - project 5</title>
 </head>
 <body>
 <!--knockout html to represent the data-->
-<div id="places">
+<div id="places" class="hidden-xs places">
 	<ul data-bind="foreach: searchPlaces">
 		<li data-bind="text: $data.name, click: $parent.setCurrentPlace, css: { selected: $data.selected() > 0 }"></li>
 	</ul>
@@ -17,6 +18,7 @@
 		</form>
 	</ul>
 </div>
+<button type="button" id="placesBtn" class="btn-default visible-xs btn-lg placesBtn">menu</button>
 <div id="map-canvas"></div>
 <script src="./js/libs/jquery.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDyhcdWwoXeQZdOTysKxgw8WrGbRm-GQIQ"></script>
@@ -24,5 +26,10 @@
 <script src="./js/libs/markerclusterer.js"></script>
 <script src="./js/libs/infobubble.js"></script>
 <script src="./js/script.js"></script>
+<!--<script>
+	$( "#placesBtn" ).click(function() {
+		$( "#places" ).toggleClass( "hidden-xs" );
+	});
+</script>-->
 </body>
 </html>
