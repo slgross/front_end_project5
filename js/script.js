@@ -151,7 +151,7 @@ var ViewModel = function(){
 
             var items = [];
             $.each(data.response.docs, function (idx, obj) {
-                items.push("<h3>" + idx + " - " + obj.headline.main + "</h3>");
+                items.push("<h4>" + idx + " - " + obj.headline.main + "</h4>");
                 items.push("<p>" + obj.snippet + "</p>");
             });
 
@@ -226,5 +226,8 @@ var ViewModel = function(){
                 });
             }
         });
+    $( "#placesBtn" ).click(function() {
+        $( "#places" ).toggleClass( "hidden-xs" );
+    });
 };
 ko.applyBindings(new ViewModel());
