@@ -214,7 +214,6 @@ var ViewModel = function(){
         return true;
     };
     this.currentPlace = ko.observable( this.list()[0] );
-    this.setCurrentPlace(this.list()[0]);
     this.searchBox = ko.observable("");
     //use ko utils arrayFilter to filter the array of markers to implement the search functionality
     this.searchPlaces = ko.computed(function() {
@@ -229,5 +228,8 @@ var ViewModel = function(){
     $( "#placesBtn" ).click(function() {
         $( "#places" ).toggleClass( "hidden-xs" );
     });
+    window.onload = function() {
+        self.setCurrentPlace(self.list()[0]);
+    };
 };
 ko.applyBindings(new ViewModel());
