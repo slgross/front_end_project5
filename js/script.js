@@ -228,8 +228,8 @@ var ViewModel = function(){
     $( "#placesBtn" ).click(function() {
         $( "#places" ).toggleClass( "hidden-xs" );
     });
-    window.onload = function() {
+    google.maps.event.addListenerOnce(gMap, 'idle', function(){
         self.setCurrentPlace(self.list()[0]);
-    };
+    });
 };
 ko.applyBindings(new ViewModel());
