@@ -228,6 +228,6 @@ var ViewModel = function(){
     $( "#placesBtn" ).click(function() {
         $( "#places" ).toggleClass( "hidden-xs" );
     });
-    this.setCurrentPlace(this.list()[0]);
+    window.onload=this.setCurrentPlace(this.list()[0]);
 };
 ko.applyBindings(new ViewModel());
